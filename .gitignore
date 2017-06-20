@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+# Created by .ignore support plugin (hsz.mobi)
+### Node template
+>>>>>>> 4e4f0a1162f66f9b967ec9c7f33951ea33b4e0e0
 # Logs
 logs
 *.log
@@ -56,3 +61,8 @@ typings/
 
 # dotenv environment variables file
 .env
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 4e4f0a1162f66f9b967ec9c7f33951ea33b4e0e0

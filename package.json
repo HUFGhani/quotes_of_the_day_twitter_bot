@@ -11,9 +11,15 @@
     "url": "git+https://github.com/HUFGhani/quotes_of_the_day_twitter_bot.git"
   },
   "author": "Hamza Ghani",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/HUFGhani/quotes_of_the_day_twitter_bot/issues"
   },
-  "homepage": "https://github.com/HUFGhani/quotes_of_the_day_twitter_bot#readme"
+  "homepage": "https://github.com/HUFGhani/quotes_of_the_day_twitter_bot#readme",
+  "dependencies": {
+    "cron": "^1.2.1",
+    "dotenv": "^4.0.0",
+    "node-fetch": "^1.7.1",
+    "twit": "^2.2.9"
+  }
 }

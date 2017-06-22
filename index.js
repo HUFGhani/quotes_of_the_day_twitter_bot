@@ -14,7 +14,7 @@ var T = new Twit({
 
 var status = ""
 
-var textJob = new cronJob('0 20 * * *', function() {
+var textJob = new cronJob('0 21 * * *', function() {
     fetch('http://quotes.rest/qod.json')
         .then(function(response) {
             return response.json();

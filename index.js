@@ -3,7 +3,6 @@ const fetch = require('node-fetch');
 var Twit = require('twit'),
     cronJob = require('cron').CronJob;
 
-
 var T = new Twit({
     consumer_key: process.env.consumer_key,
     consumer_secret: process.env.consumer_secret,

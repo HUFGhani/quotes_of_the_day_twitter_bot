@@ -1,7 +1,12 @@
+var express = require('express');
+var app = express();
 require('dotenv').config();
 const fetch = require('node-fetch');
 var Twit = require('twit'),
     cronJob = require('cron').CronJob;
+
+
+app.set('port', (process.env.PORT || 5000));
 
 var T = new Twit({
     consumer_key: process.env.consumer_key,
@@ -31,3 +36,8 @@ var textJob = new cronJob('0 21 * * *', function() {
             }
         });
 }, null, true);
+
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});

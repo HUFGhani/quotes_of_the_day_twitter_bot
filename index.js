@@ -14,13 +14,13 @@ var T = new Twit({
 
 var status = ""
 
-var textJob = new cronJob('0 19 * * *', function() {
+var textJob = new cronJob('0 20 * * *', function() {
     fetch('http://quotes.rest/qod.json')
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
-          status = data.contents.quotes[0].quote
+          status = '"'+ data.contents.quotes[0].quote + '" - ' + data.contents.quotes[0].author
           if (status.length > 140) {
                 return callback(new Error('tweet is too long: ' + status.length));
             } else {

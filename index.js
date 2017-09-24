@@ -1,7 +1,8 @@
 require('dotenv').config();
 const fetch = require('node-fetch');
 var Twit = require('twit'),
-    cronJob = require('cron').CronJob;
+    cronJob = require('cron').CronJob,
+    fileType = require('file-type');
 
 var T = new Twit({
     consumer_key: process.env.consumer_key,
@@ -12,7 +13,7 @@ var T = new Twit({
 })
 
 var status = ""
-
+var img = ""
 var textJob = new cronJob('0 9 * * *', function() {
     fetch('http://quotes.rest/qod.json')
         .then(function(response) {
@@ -21,7 +22,30 @@ var textJob = new cronJob('0 9 * * *', function() {
         .then(function(data) {
           status = '"'+ data.contents.quotes[0].quote + '" - ' + data.contents.quotes[0].author
           if (status.length > 140) {
-                return callback(new Error('tweet is too long: ' + status.length));
+                // return callback(new Error('tweet is too long: ' + status.length));
+                var id = data.contents.quotes[0].id
+                fetch("https://theysaidso.com/quote/image/" + id )
+                .then(function(res) {
+                   return res.buffer();
+                }).then(function(buffer) {
+                  var b64content = fs.readFileSync(buffer, { encoding: 'base64' })
+                  T.post('media/upload', { media_data: b64content }, function (err, d, response) {
+                    // now we can assign alt text to the media, for use by screen readers and
+                    // other text-based presentations and interpreters
+                    var mediaIdStr = d.media_id_string
+                    var altText = status
+                    var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
+                     T.post('media/metadata/create', meta_params, function (err, data, response) {
+                       if (!err) {
+                         // now we can reference the media and post a tweet (media will attach to the tweet)
+                         var params = { status: 'Quote of the day', media_ids: [mediaIdStr] }
+                         T.post('statuses/update', params, function (err, da, response) {
+                           console.log(da)
+                         })
+                       }
+                     })
+                   })
+                });
             } else {
                 T.post('statuses/update', {
                     status: status

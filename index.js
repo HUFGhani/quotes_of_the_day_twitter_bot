@@ -23,9 +23,8 @@ var textJob = new cronJob('0 8 * * *', function() {
         .then(function(data) {
           status = '"'+ data.contents.quotes[0].quote + '" - ' + data.contents.quotes[0].author
           if (status.length > 140) {
-                // return callback(new Error('tweet is too long: ' + status.length));
-                var id = data.contents.quotes[0].id
-                fetch("https://theysaidso.com/quote/image/" + id )
+                // return callback(new Error('tweet is too long: ' + status.length)); 
+                fetch("https://theysaidso.com/quote/image/" + data.contents.quotes[0].id )
                 .then(function(res) {
                    return res.buffer();
                 }).then(function(buffer) {

@@ -2,7 +2,8 @@ require('dotenv').config();
 const fetch = require('node-fetch');
 var Twit = require('twit'),
     cronJob = require('cron').CronJob,
-    fileType = require('file-type');
+    fileType = require('file-type'),
+    fs = require('fs');
 
 var T = new Twit({
     consumer_key: process.env.consumer_key,
@@ -14,7 +15,7 @@ var T = new Twit({
 
 var status = ""
 var img = ""
-var textJob = new cronJob('0 9 * * *', function() {
+var textJob = new cronJob('0 8 * * *', function() {
     fetch('http://quotes.rest/qod.json')
         .then(function(response) {
             return response.json();
@@ -28,7 +29,11 @@ var textJob = new cronJob('0 9 * * *', function() {
                 .then(function(res) {
                    return res.buffer();
                 }).then(function(buffer) {
-                  var b64content = fs.readFileSync(buffer, { encoding: 'base64' })
+                  fs.writeFile('image.png', buffer, function (err) {
+                    if (err) throw err;
+                      console.log('Saved!');
+                      });
+                  var b64content = fs.readFileSync('image.png', { encoding: 'base64' })
                   T.post('media/upload', { media_data: b64content }, function (err, d, response) {
                     // now we can assign alt text to the media, for use by screen readers and
                     // other text-based presentations and interpreters
@@ -45,6 +50,10 @@ var textJob = new cronJob('0 9 * * *', function() {
                        }
                      })
                    })
+                });
+                fs.unlink('image.png', function (err) {
+                  if (err) throw err;
+                    console.log('File deleted!');
                 });
             } else {
                 T.post('statuses/update', {

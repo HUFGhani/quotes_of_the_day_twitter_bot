@@ -34,7 +34,7 @@ var textJob = new cronJob('0 8 * * *', function() {
                       console.log('Saved!');
                       });
                   var b64content = fs.readFileSync('image.png', { encoding: 'base64' })
-                  T.post('media/upload', { media_data: b64content }, function (err, d, response) {
+                  T.post('media/upload', { media_data: b64content }, function (err, data, response) {
                     // now we can assign alt text to the media, for use by screen readers and
                     // other text-based presentations and interpreters
                     var mediaIdStr = d.media_id_string
@@ -44,8 +44,8 @@ var textJob = new cronJob('0 8 * * *', function() {
                        if (!err) {
                          // now we can reference the media and post a tweet (media will attach to the tweet)
                          var params = { status: 'Quote of the day', media_ids: [mediaIdStr] }
-                         T.post('statuses/update', params, function (err, da, response) {
-                           console.log(da)
+                         T.post('statuses/update', params, function (err, date, response) {
+                           console.log(data)
                          })
                        }
                      })

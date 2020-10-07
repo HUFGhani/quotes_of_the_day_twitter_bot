@@ -30,8 +30,12 @@ jobs:
     - name: installing dependencies
       run: yarn
     - name: running application
-      run:  consumer_key=${{ secrets.CONSUMER_KEY }} consumer_secret=${{ secrets.CONSUMER_SECRET }} access_token=${{ secrets.ACCESS_TOKEN }} access_token_secret=${{ secrets.ACCESS_TOKEN_SECRET }} node index.js 
-       
+      run:  node index.js 
+      env:
+          consumer_key: ${{ secrets.CONSUMER_KEY }}
+          consumer_secret: ${{ secrets.CONSUMER_SECRET }}
+          access_token: ${{ secrets.ACCESS_TOKEN }}
+          access_token_secret: ${{ secrets.ACCESS_TOKEN_SECRET }}
        
         
        

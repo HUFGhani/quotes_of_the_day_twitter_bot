@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "quotes of the day twitter bot",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,7 +19,6 @@
   },
   "homepage": "https://github.com/HUFGhani/quotes_of_the_day_twitter_bot#readme",
   "dependencies": {
-    "cron": "^1.2.1",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1",
     "twit": "^2.2.9"

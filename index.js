@@ -64,7 +64,7 @@ const tweet = async () => {
           if (!err) {
             // now we can reference the media and post a tweet (media will attach to the tweet)
             var params = {
-              status: 'Quote of the day',
+              status: '#QuoteOfTheDay',
               media_ids: [mediaIdStr],
             }
 

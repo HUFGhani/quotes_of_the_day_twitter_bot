@@ -3,7 +3,6 @@ import Twit from 'twit'
 import dotenv from 'dotenv'
 import fs from 'fs'
 
-
 dotenv.config()
 
 const T = new Twit({
@@ -94,7 +93,7 @@ const tweet = async () => {
 }
 
 const tweetBuilder = (quoteData) => {
-  return `"${quoteData.contents.quotes[0].quote}" - ${quoteData.contents.quotes[0].author}`
+  return `"${quoteData.contents.quotes[0].quote}" - ${quoteData.contents.quotes[0].author} #QuoteOfTheDay`
 }
 
 tweet()
